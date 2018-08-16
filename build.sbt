@@ -1,3 +1,7 @@
+import de.heikoseeberger.sbtheader.FileType
+
+lazy val root = project.in(file(".")).enablePlugins(AutomateHeaderPlugin)
+
 name := "transmogrify-helloworld"
 
 scalaVersion := "2.11.12"
@@ -23,3 +27,23 @@ libraryDependencies ++= sparkDependencies.map(_ % Test)
 (version in avroConfig) := "1.7.7"
 
 (stringType in avroConfig) := "String"
+
+// license header stuff
+
+organizationName := "Salesforce.com, Inc."
+
+startYear := Some(2018)
+
+licenses += "BSD-3-Clause" -> url("https://opensource.org/licenses/BSD-3-Clause")
+
+headerMappings += FileType("html") -> HeaderCommentStyle.twirlStyleBlockComment
+
+headerLicense := Some(
+  HeaderLicense.Custom(
+    """|Copyright (c) 2018, Salesforce.com, Inc.
+       |All rights reserved.
+       |SPDX-License-Identifier: BSD-3-Clause
+       |For full license text, see the LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+       |""".stripMargin
+  )
+)
