@@ -20,4 +20,6 @@ libraryDependencies ++= sparkDependencies.map(_ % Provided)
 
 libraryDependencies ++= sparkDependencies.map(_ % Test)
 
-(stringType in AvroConfig) := "String"
+(version in avroConfig) := "1.7.7"
+
+(stringType in avroConfig) := "String"
