@@ -11,6 +11,7 @@ import com.salesforce.op._
 import com.salesforce.op.evaluators.Evaluators
 import com.salesforce.op.readers.CustomReader
 import com.salesforce.op.stages.impl.regression.RegressionModelSelector
+import com.salesforce.op.stages.impl.regression.RegressionModelsToTry._
 import com.salesforce.op.stages.impl.tuning.DataSplitter
 import com.salesforce.op.utils.kryo.OpKryoRegistrator
 import org.apache.spark.rdd.RDD
@@ -27,7 +28,7 @@ object OpBoston extends OpAppWithRunner with BostonFeatures {
   // READERS DEFINITION
   /////////////////////////////////////////////////////////////////////////////////
 
-  val randomSeed = 112233
+  val randomSeed = 112233L
 
   def customRead(path: Option[String], spark: SparkSession): RDD[BostonHouse] = {
     require(path.isDefined, "The path is not set")
@@ -65,11 +66,10 @@ object OpBoston extends OpAppWithRunner with BostonFeatures {
   val houseFeatures = Seq(crim, zn, indus, chas, nox, rm, age, dis, rad, tax, ptratio, b, lstat).transmogrify()
 
   val prediction = RegressionModelSelector
-    .withCrossValidation(dataSplitter = Option(DataSplitter(seed = randomSeed)), seed = randomSeed)
-    .setRandomForestSeed(randomSeed)
-    .setGradientBoostedTreeSeed(randomSeed)
-    .setInput(medv, houseFeatures)
-    .getOutput()
+    .withCrossValidation(
+      dataSplitter = Some(DataSplitter(seed = randomSeed)), seed = randomSeed,
+      modelTypesToUse = Seq(OpGBTRegressor, OpRandomForestRegressor)
+    ).setInput(medv, houseFeatures).getOutput()
 
   val workflow = new OpWorkflow().setResultFeatures(prediction)
 

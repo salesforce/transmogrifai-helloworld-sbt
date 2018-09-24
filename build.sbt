@@ -6,7 +6,7 @@ name := "transmogrify-helloworld"
 
 scalaVersion := "2.11.12"
 
-val transmogrifaiVersion = "0.3.4"
+val transmogrifaiVersion = "0.4.0"
 
 val sparkVersion = "2.2.1"
 

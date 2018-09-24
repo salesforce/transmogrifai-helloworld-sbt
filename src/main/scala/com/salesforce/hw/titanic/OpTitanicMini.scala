@@ -11,6 +11,7 @@ import com.salesforce.op._
 import com.salesforce.op.features.FeatureBuilder
 import com.salesforce.op.features.types._
 import com.salesforce.op.readers.DataReaders
+import com.salesforce.op.stages.impl.classification.BinaryClassificationModelsToTry.{OpLogisticRegression, OpRandomForestClassifier}
 import com.salesforce.op.stages.impl.classification._
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
@@ -48,14 +49,16 @@ object OpTitanicMini {
 
     // Automated feature engineering
     val (survived, features) = FeatureBuilder.fromDataFrame[RealNN](passengersData, response = "survived")
-    val featureVector = features.toSeq.autoTransform()
+    val featureVector = features.transmogrify()
 
     // Automated feature selection
     val checkedFeatures = survived.sanityCheck(featureVector, checkSample = 1.0, removeBadFeatures = true)
 
     // Automated model selection
-    val (pred, raw, prob) = BinaryClassificationModelSelector().setInput(survived, checkedFeatures).getOutput()
-    val model = new OpWorkflow().setInputDataset(passengersData).setResultFeatures(pred).train()
+    val prediction = BinaryClassificationModelSelector
+      .withCrossValidation(modelTypesToUse = Seq(OpLogisticRegression, OpRandomForestClassifier))
+      .setInput(survived, checkedFeatures).getOutput()
+    val model = new OpWorkflow().setInputDataset(passengersData).setResultFeatures(prediction).train()
 
     println("Model summary:\n" + model.summaryPretty())
   }

@@ -49,18 +49,15 @@ object OpIris extends OpAppWithRunner with IrisFeatures {
 
   val features = Seq(sepalLength, sepalWidth, petalLength, petalWidth).transmogrify()
 
-  val (pred, raw, prob) = MultiClassificationModelSelector
-    .withCrossValidation(splitter = Some(DataCutter(reserveTestFraction = 0.2, seed = randomSeed)), seed = randomSeed)
-    .setDecisionTreeSeed(randomSeed)
+  val cutter = DataCutter(reserveTestFraction = 0.2, seed = randomSeed)
+
+  val prediction = MultiClassificationModelSelector
+    .withCrossValidation(splitter = Option(cutter), seed = randomSeed)
     .setInput(labels, features).getOutput()
 
-  val evaluator = Evaluators.MultiClassification.f1()
-    .setLabelCol(labels)
-    .setPredictionCol(pred)
-    .setRawPredictionCol(raw)
-    .setProbabilityCol(prob)
+  val evaluator = Evaluators.MultiClassification.f1().setLabelCol(labels).setPredictionCol(prediction)
 
-  val workflow = new OpWorkflow().setResultFeatures(pred, raw, prob, labels)
+  val workflow = new OpWorkflow().setResultFeatures(prediction, labels)
 
   def runner(opParams: OpParams): OpWorkflowRunner =
     new OpWorkflowRunner(
