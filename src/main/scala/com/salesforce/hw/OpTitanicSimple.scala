@@ -146,5 +146,7 @@ object OpTitanicSimple {
     dataframe.columns.foreach(println)
     println("Metrics:")
     println(metrics)
+    
+    spark.stop()
   }
 }
