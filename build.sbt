@@ -6,9 +6,9 @@ name := "transmogrify-helloworld"
 
 scalaVersion := "2.11.12"
 
-val transmogrifaiVersion = "0.4.0"
+val transmogrifaiVersion = "0.5.0"
 
-val sparkVersion = "2.2.1"
+val sparkVersion = "2.3.2"
 
 resolvers += Resolver.bintrayRepo("salesforce", "maven")
 
