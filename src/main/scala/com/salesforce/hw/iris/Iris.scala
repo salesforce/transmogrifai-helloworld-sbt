@@ -28,16 +28,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.salesforce.hw.titanic
+package com.salesforce.hw.iris
 
-import com.esotericsoftware.kryo.Kryo
-import com.salesforce.op.utils.kryo.OpKryoRegistrator
-
-
-class TitanicKryoRegistrator extends OpKryoRegistrator {
-
-  override def registerCustomClasses(kryo: Kryo): Unit = {
-    doAvroRegistration[com.salesforce.hw.titanic.Passenger](kryo)
-  }
-
-}
+case class Iris
+(
+  sepalLength: Double,
+  sepalWidth: Double,
+  petalLength: Double,
+  petalWidth: Double,
+  irisClass: String
+)
