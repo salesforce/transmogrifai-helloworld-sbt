@@ -105,6 +105,18 @@ export SPARK_HOME=your_spark_home_dir
     --metrics-location /tmp/iris-metrics"
 ```
 
+## Data Preparation
+```
+./sbt "sparkSubmit \
+    --class com.salesforce.hw.dataprep.JoinsAndAggregates -- \
+    $PWD/src/main/resources/EmailDataset/Clicks.csv \
+    $PWD/src/main/resources/EmailDataset/Sends.csv"
+
+./sbt "sparkSubmit \
+    --class com.salesforce.hw.dataprep.ConditionalAggregation -- \
+    $PWD/src/main/resources/WebVisitsDataset/WebVisits.csv"
+```
+
 ## Verify the Results
 
 Look for the output file(s) in the location you specified. For instance, you can use `avro-tools` to inspect the scores files (on mac simply run `brew install avro-tools` to install it).
