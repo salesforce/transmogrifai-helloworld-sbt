@@ -50,7 +50,6 @@ export SPARK_HOME=your_spark_home_dir
 ### Train
 ```
 ./sbt "sparkSubmit \
-    --master local[*]
     --class com.salesforce.hw.boston.OpBoston -- \
     --run-type=train --model-location=/tmp/boston-model \
     --read-location BostonHouse=$PWD/src/main/resources/BostonDataset/housing.data"
@@ -76,6 +75,35 @@ export SPARK_HOME=your_spark_home_dir
     --metrics-location /tmp/boston-metrics"
 ```
 
+## Iris model
+
+### Train
+```
+./sbt "sparkSubmit \
+    --class com.salesforce.hw.iris.OpIris -- \
+    --run-type=train --model-location=/tmp/iris-model \
+    --read-location Iris=$PWD/src/main/resources/IrisDataset/iris.data"
+```
+
+### Score
+```
+./sbt "sparkSubmit \
+    --class com.salesforce.hw.iris.OpIris -- \
+    --run-type=score --model-location=/tmp/iris-model \
+    --read-location Iris=$PWD/src/main/resources/IrisDataset/bezdekIris.data \
+    --write-location /tmp/iris-scores"
+```
+
+### Evaluate
+```
+./sbt "sparkSubmit \
+    --class com.salesforce.hw.iris.OpIris -- \
+    --run-type evaluate \
+    --model-location /tmp/iris-model \
+    --read-location Iris=$PWD/src/main/resources/IrisDataset/bezdekIris.data \
+    --write-location /tmp/iris-eval \
+    --metrics-location /tmp/iris-metrics"
+```
 
 ## Verify the Results
 
