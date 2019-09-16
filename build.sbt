@@ -47,3 +47,5 @@ headerLicense := Some(
        |""".stripMargin
   )
 )
+
+sparkSubmitMaster := {(_, _) => "local[*]"}
