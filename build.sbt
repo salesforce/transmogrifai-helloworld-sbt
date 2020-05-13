@@ -6,9 +6,9 @@ name := "transmogrify-helloworld"
 
 scalaVersion := "2.11.12"
 
-val transmogrifaiVersion = "0.6.1"
+val transmogrifaiVersion = "0.7.0"
 
-val sparkVersion = "2.3.2"
+val sparkVersion = "2.4.5"
 
 resolvers += Resolver.bintrayRepo("salesforce", "maven")
 
@@ -24,7 +24,7 @@ libraryDependencies ++= sparkDependencies.map(_ % Provided)
 
 libraryDependencies ++= sparkDependencies.map(_ % Test)
 
-(version in avroConfig) := "1.7.7"
+(version in avroConfig) := "1.8.2"
 
 (stringType in avroConfig) := "String"
 

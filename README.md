@@ -1,6 +1,6 @@
 # TransmogrifAI Hello World for SBT
 
-First, [Download Spark 2.3.2](https://spark.apache.org/downloads.html)
+First, [Download Spark 2.4.5](https://spark.apache.org/downloads.html)
 
 ### Define SPARK_HOME environment variable
 ```
@@ -127,4 +127,4 @@ Other than that, the best way to verify the results is to look through the logs 
 
 Experiment with adding feature changes or exploring more models in any of the provided workflows.
 
-See how high you can get your AUROC!
+See how high you can get your auROC!
