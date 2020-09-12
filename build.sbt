@@ -8,7 +8,7 @@ scalaVersion := "2.11.12"
 
 val transmogrifaiVersion = "0.7.0"
 
-val sparkVersion = "2.4.5"
+val sparkVersion = "2.4.7"
 
 resolvers += Resolver.bintrayRepo("salesforce", "maven")
 
