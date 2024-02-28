@@ -4,7 +4,7 @@ lazy val root = project.in(file(".")).enablePlugins(AutomateHeaderPlugin)
 
 name := "transmogrify-helloworld"
 
-scalaVersion := "2.11.12"
+scalaVersion := "2.13.13"
 
 val transmogrifaiVersion = "0.7.0"
 
